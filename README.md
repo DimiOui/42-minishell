@@ -4,7 +4,7 @@
 
 ## Mindmap
 click image for a much better resolution.
-<img src="https://user-images.githubusercontent.com/72572726/165954653-bf3cff78-a225-402e-9837-51a58132dd87.png" width="2000">
+<img src="https://user-images.githubusercontent.com/72572726/165954653-bf3cff78-a225-402e-9837-51a58132dd87.png" width="2000"  height="1000">
 ## Execution
 Run
 ```
