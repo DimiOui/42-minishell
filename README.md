@@ -3,7 +3,7 @@
 **Minishell project done with [Jeremy](https://github.com/thePush/).**
 
 ## Mindmap
-![mind_map](https://user-images.githubusercontent.com/72572726/165236587-71f689d4-18a7-4286-a8f2-a02aed6792f1.png)
+![image](https://user-images.githubusercontent.com/72572726/165952529-654edd8f-bca0-4f43-960b-ad58c392c0d0.png)
 
 
 ## Execution
