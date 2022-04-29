@@ -14,18 +14,12 @@ valgrind --suppressions=ignoreleak --leak-check=full --show-leak-kinds=all --tra
 with the ignoreleak file in root folder to avoid readline and addhistory leaks.
 
 ## Features
+![image](https://user-images.githubusercontent.com/72572726/165951390-b2748103-1933-4bbb-893d-a392f78cf6c9.png)
 
-======================== DONE =========================
-
--	echo $USE/////R (expand vars)                    [OK]
--	SHLVL = 999 to SHLVL = 1 (environnement handler) [OK]
--	echo -nnnnnnnnnnnnnnnnnnnnnnnnn lol (ft_echo)    [OK]
--	unset/export 1+++a==-- (builtins_env + libft)    [OK]
--	check relinking Makefile                         [OK]
+## Other features
+-	echo $USE/////R                                  [OK]
+-	SHLVL = 999 to SHLVL = 1                         [OK]
+-	echo -nnnnnnnnnnnnnnnnnnnnnnnnn hi               [OK]
+-	unset/export 1+++a==--                           [OK]
 -	export a+=b                                      [OK]
--	echo "$USER" (init_substr)                       [OK]
--	export $USER=xxx                                 [OK]
--	l$a                                              [OK]
--	echo l$USER/R      (expanders)                   [OK]
--	expand in heredoc                                [OK]
--	check all leaks (still reacheables)              [OK]
+-	echo l$USER/R                                    [OK]
