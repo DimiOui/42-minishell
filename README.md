@@ -11,7 +11,7 @@ valgrind --suppressions=ignoreleak --leak-check=full --show-leak-kinds=all --tra
 
 with the ignoreleak file in root folder to avoid readline and addhistory leaks.
 
-===================================== DONE ===================================================================
+======================== DONE =========================
 
 -	echo $USE/////R (expand vars)                    [OK]
 -	SHLVL = 999 to SHLVL = 1 (environnement handler) [OK]
@@ -20,9 +20,8 @@ with the ignoreleak file in root folder to avoid readline and addhistory leaks.
 -	check relinking Makefile                         [OK]
 -	export a+=b                                      [OK]
 -	echo "$USER" (init_substr)                       [OK]
--	export $USER=xxx CRASH                           [OK]
--	l$a garbage                                      [OK]
--	echo l$USE/R                                     [OK]
+-	export $USER=xxx                                 [OK]
+-	l$a                                              [OK]
 -	echo l$USER/R      (expanders)                   [OK]
 -	expand in heredoc                                [OK]
--	check all leaks (still cringeables)              [OK]
+-	check all leaks (still reacheables)              [OK]
