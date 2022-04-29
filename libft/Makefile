@@ -6,7 +6,7 @@
 #    By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/24 14:49:36 by dpaccagn          #+#    #+#              #
-#    Updated: 2022/04/17 18:48:28 by jsemel           ###   ########.fr        #
+#    Updated: 2022/04/26 12:57:29 by jsemel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -78,6 +78,7 @@ SRCS		=	$(addprefix srcs/, \
 				ft_str_alnum.c \
 				ft_str_check_var.c \
 				ft_pop_charset.c \
+				get_next_line.c \
 				)
 
 OBJS		= $(SRCS:.c=.o)

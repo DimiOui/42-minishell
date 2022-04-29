@@ -6,7 +6,7 @@
 /*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 12:54:59 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/15 18:13:10 by jsemel           ###   ########.fr       */
+/*   Updated: 2022/04/27 23:13:46 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ static char	*get_home(t_prompt prompt)
 	}
 	free(home);
 	home = ft_strjoin(BLUE, pwd);
-	free(pwd);
-	pwd = ft_strjoin(home, " ");
-	free(home);
-	home = ft_strjoin(" ", pwd);
 	free(pwd);
 	pwd = ft_strjoin(home, DEFAULT);
 	free(home);
@@ -101,11 +97,8 @@ static char	*get_user(t_prompt prompt)
 	temp2 = NULL;
 	exec_whoami(&user, "/usr/bin/whoami", "whoami", prompt.env);
 	if (!user)
-		user = ft_extend_2d_arr(user, "guest");
-	if (!ft_strncmp(user[0], "root", 4))
-		temp2 = ft_strjoin(NULL, RED);
-	else
-		temp2 = ft_strjoin(NULL, CYAN);
+		user = ft_extend_2d_arr(user, "(guest");
+	temp2 = ft_strjoin(NULL, CYAN);
 	temp = ft_strjoin(temp2, *user);
 	free(temp2);
 	ft_free_2d_array(&user);
@@ -114,21 +107,26 @@ static char	*get_user(t_prompt prompt)
 
 char	*get_prompt(t_prompt prompt)
 {
-	char	*tmp;
 	char	*ret;
-	char	*aux;
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
 
-	tmp = get_user(prompt);
-	ret = ft_strjoin(tmp, "@minishell");
-	free(tmp);
-	aux = get_home(prompt);
-	tmp = ft_strjoin(ret, aux);
-	free(aux);
+	ret = get_user(prompt);
+	tmp2 = ft_strjoin("┌──(", ret);
 	free(ret);
-	ret = ft_strjoin(tmp, BLUE);
-	free(tmp);
-	tmp = ft_strjoin(ret, "$ ");
+	ret = ft_strjoin(CYAN, tmp2);
+	free(tmp2);
+	tmp = ft_strjoin(ret, "@minishell)-[");
 	free(ret);
+	tmp3 = get_home(prompt);
+	ret = ft_strjoin(tmp, tmp3);
+	free(tmp3);
+	free(tmp);
+	tmp2 = ft_strjoin(CYAN, "]\n└─$ ");
+	tmp = ft_strjoin(ret, tmp2);
+	free(ret);
+	free(tmp2);
 	ret = ft_strjoin(tmp, DEFAULT);
 	free(tmp);
 	return (ret);

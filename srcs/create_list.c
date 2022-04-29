@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:04:07 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/20 14:03:55 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/04/26 14:38:59 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static t_mini	*parse_redir(t_mini *node, char **a[2], int *i, t_prompt *p)
 		if (!(check_arrows(a, i)))
 			return (node);
 		if (a[0][*i][0] == '>' && a[0][*i + 1] && a[0][*i + 1][0] == '>')
-			node = get_outfile2(node, a[1], i);
+			node = redir_append(node, a[1], i);
 		else if (a[0][*i][0] == '>')
-			node = get_outfile1(node, a[1], i);
+			node = redir_truncate(node, a[1], i);
 		else if (a[0][*i][0] == '<' && a[0][*i + 1] && \
 			a[0][*i + 1][0] == '<')
-			node = get_infile2(node, a[1], i, p);
+			node = redir_heredoc(node, a[1], i, p);
 		else if (a[0][*i][0] == '<')
-			node = get_infile1(node, a[1], i);
+			node = redir_input(node, a[1], i);
 		else if (a[0][*i][0] != '|')
 			node->full_cmd = ft_extend_2d_arr(node->full_cmd, a[1][*i]);
 		else

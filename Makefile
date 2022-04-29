@@ -1,5 +1,5 @@
 NAME = minishell
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 
 SRCS = builtins_cmd.c \
 	   builtins_core.c \
@@ -17,8 +17,6 @@ SRCS = builtins_cmd.c \
 	   free_memory.c \
 	   ft_input_split.c \
 	   ft_symsplit.c \
-	   get_next_line_utils.c \
-	   get_next_line.c \
 	   here_doc.c \
 	   init_prompt_utils.c \
 	   main.c \

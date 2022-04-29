@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 15:57:28 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/25 14:04:30 by dpaccagn         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:07:58 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 /* Libraries */
 # include "../libft/includes/libft.h"
-# include "get_next_line.h"
 # include <dirent.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -47,10 +46,9 @@
 # define FORKERR 8
 # define PIPERR 9
 # define PIPENDERR 10
-# define MEM 11
+# define NLERR 11
 # define IS_DIR 12
 # define NOT_DIR 13
-# define NLERR "minishell: syntax error near unexpected token `newline'"
 
 typedef struct s_prompt
 {
@@ -99,11 +97,14 @@ char		**quotes_trim(char **args);
 t_list		*create_list(char **args, int i, t_prompt *p);
 
 /* redirections */
-t_mini		*get_outfile1(t_mini *node, char **args, int *i);
-t_mini		*get_outfile2(t_mini *node, char **args, int *i);
-t_mini		*get_infile1(t_mini *node, char **args, int *i);
-t_mini		*get_infile2(t_mini *node, char **args, int *i, t_prompt *p);
+t_mini		*redir_truncate(t_mini *node, char **args, int *i);
+t_mini		*redir_append(t_mini *node, char **args, int *i);
+t_mini		*redir_input(t_mini *node, char **args, int *i);
+t_mini		*redir_heredoc(t_mini *node, char **args, int *i, t_prompt *p);
 int			get_here_doc(char *str[2], char *aux[2], t_prompt *p);
+/* redirections utils */
+int			fd_handler_append(int fd, char *path, struct stat path_stat);
+int			fd_handler_truncate(int fd, char *path, struct stat path_stat);
 
 /* prompt and env */
 char		*ft_getenv(char *var, char **envp, int n);
@@ -119,7 +120,5 @@ void		signal_handler(int sig);
 /* utils */
 void		*ft_perror(int err_type, char *param, int exit_code);
 void		free_content(void *content);
-int			fd_handler_util1(int oldfd, char *path, int flags[2]);
-int			fd_handler_util2(int fd, char *path, struct stat path_stat);
 
 #endif

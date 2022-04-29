@@ -6,7 +6,7 @@
 /*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 09:55:22 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/15 16:13:59 by jsemel           ###   ########.fr       */
+/*   Updated: 2022/04/28 00:07:56 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	*ft_perror(int err_type, char *param, int exit_code)
 	else if (err_type == NDIR)
 		ft_putstr_fd("minishell: No such file or directory: ", 2);
 	else if (err_type == NPERM)
-		ft_putstr_fd("minishell: permission denied: ", 2);
+		ft_putstr_fd("minishell: Permission denied: ", 2);
 	else if (err_type == NCMD)
 		ft_putstr_fd("minishell: command not found: ", 2);
 	else if (err_type == DUPERR)
@@ -36,8 +36,8 @@ void	*ft_perror(int err_type, char *param, int exit_code)
 		ft_putstr_fd("minishell: error creating pipe\n", 2);
 	else if (err_type == PIPENDERR)
 		ft_putstr_fd("minishell: syntax error near unexpected token `|'\n", 2);
-	else if (err_type == MEM)
-		ft_putstr_fd("minishell: no memory left on device\n", 2);
+	else if (err_type == NLERR)
+		ft_putstr_fd("minishell: syntax error near unexpected token `newline'\n", 2);
 	else if (err_type == IS_DIR)
 		ft_putstr_fd("minishell: Is a directory: ", 2);
 	else if (err_type == NOT_DIR)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dimioui <dimioui@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/18 21:40:10 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/22 10:21:55 by dimioui          ###   ########.fr       */
+/*   Updated: 2022/04/27 23:06:19 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_substr(char *arg, int i, t_prompt *prompt, char *tmp[4])
 	char	**tmp_split;
 
 	tmp[0] = ft_substr(arg, 0, i - 1);
-	tmp_split = ft_symsplit(&arg[i], "/~%^{}:;=+-*#.,[]@?\"");
+	tmp_split = ft_symsplit(&arg[i], "/~%^{}:;=+-*#.,[]@?\"\'");
 	tmp[3] = ft_getenv(tmp_split[0], prompt->env, \
 		ft_strchars_i(tmp_split[0], "\"\'$|>< "));
 	ft_free_2d_array(&tmp_split);
@@ -33,7 +33,7 @@ static void	get_substr_var2(char *arg, int i, char *tmp[4], int j[2])
 {
 	tmp[2] = ft_strjoin(tmp[0], tmp[3]);
 	free(tmp[0]);
-	j[1] = ft_strchars_i(&arg[i - 1], "/~%^{}:;=+-*#.,[]@?\"");
+	j[1] = ft_strchars_i(&arg[i - 1], "/~%^{}:;=+-*#.,[]@?\"\'");
 	if (j[1] >= 0 && tmp[3])
 	{
 		tmp[1] = ft_strdup(&arg[j[1]

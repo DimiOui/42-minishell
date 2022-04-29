@@ -6,7 +6,7 @@
 /*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:25:17 by dpaccagn          #+#    #+#             */
-/*   Updated: 2022/04/17 18:47:29 by jsemel           ###   ########.fr       */
+/*   Updated: 2022/04/26 12:59:29 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ char	**ft_subsplit(char const *s, char *needle);
 bool	ft_str_alnum(char *str);
 bool	ft_str_check_var(char *str, int pos);
 char	*ft_pop_charset(char *av, char *set);
+char	*get_next_line(int fd);
 
 #endif

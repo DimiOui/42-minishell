@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_redir_handler.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpaccagn <dpaccagn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/04 18:17:09 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/25 14:05:26 by dpaccagn         ###   ########.fr       */
+/*   Updated: 2022/04/28 00:07:30 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ static int	fd_handler(int oldfd, char *path, int flags[2])
 
 	fd = 0;
 	stat(path, &path_stat);
-	fd_handler_util1(oldfd, path, flags);
+	if (oldfd > 2)
+		close(oldfd);
+	if (!path)
+		return (-1);
+	if (access(path, F_OK) == -1 && !flags[0])
+		ft_perror(NDIR, path, 127);
+	else if (!flags[0] && access(path, R_OK) == -1)
+		ft_perror(NPERM, path, 126);
 	if (flags[0] && flags[1])
-		fd = fd_handler_util2(fd, path, path_stat);
+		fd = fd_handler_append(fd, path, path_stat);
 	else if (flags[0] && !flags[1])
-	{
-		fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-		if (fd == -1 && S_ISDIR(path_stat.st_mode))
-			ft_perror(IS_DIR, path, 127);
-		else if (fd == -1 && access(path, W_OK) == -1 && \
-			access(path, F_OK) == 0)
-			ft_perror(NPERM, path, 126);
-	}
+		fd = fd_handler_truncate(fd, path, path_stat);
 	else if (!flags[0] && oldfd != -1)
 		fd = open(path, O_RDONLY);
 	else
@@ -51,9 +51,9 @@ static int	fd_handler(int oldfd, char *path, int flags[2])
 /*
 ** [>]
 */
-t_mini	*get_outfile1(t_mini *node, char **args, int *i)
+t_mini	*redir_truncate(t_mini *node, char **args, int *i)
 {
-	int		flags[2];
+	int	flags[2];
 
 	flags[0] = 1;
 	flags[1] = 0;
@@ -65,7 +65,7 @@ t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 		*i = -1;
 		if (node->outfile != -1)
 		{
-			ft_putendl_fd(NLERR, 2);
+			ft_perror(NLERR, NULL, 1);
 			g_status = 2;
 		}
 		else
@@ -77,9 +77,9 @@ t_mini	*get_outfile1(t_mini *node, char **args, int *i)
 /*
 ** [>>]
 */
-t_mini	*get_outfile2(t_mini *node, char **args, int *i)
+t_mini	*redir_append(t_mini *node, char **args, int *i)
 {
-	int		flags[2];
+	int	flags[2];
 
 	flags[0] = 1;
 	flags[1] = 1;
@@ -91,7 +91,7 @@ t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 		*i = -1;
 		if (node->outfile != -1)
 		{
-			ft_putendl_fd(NLERR, 2);
+			ft_perror(NLERR, NULL, 1);
 			g_status = 2;
 		}
 		else
@@ -103,9 +103,9 @@ t_mini	*get_outfile2(t_mini *node, char **args, int *i)
 /*
 ** [<]
 */
-t_mini	*get_infile1(t_mini *node, char **args, int *i)
+t_mini	*redir_input(t_mini *node, char **args, int *i)
 {
-	int		flags[2];
+	int	flags[2];
 
 	flags[0] = 0;
 	flags[1] = 0;
@@ -117,7 +117,7 @@ t_mini	*get_infile1(t_mini *node, char **args, int *i)
 		*i = -1;
 		if (node->infile != -1)
 		{
-			ft_putendl_fd(NLERR, 2);
+			ft_perror(NLERR, NULL, 1);
 			g_status = 2;
 		}
 		else
@@ -128,9 +128,8 @@ t_mini	*get_infile1(t_mini *node, char **args, int *i)
 
 /*
 ** [<<]
-** Store the here_doc's strings in fd infile
 */
-t_mini	*get_infile2(t_mini *node, char **args, int *i, t_prompt *p)
+t_mini	*redir_heredoc(t_mini *node, char **args, int *i, t_prompt *p)
 {
 	char	*tmp[2];
 	char	*str[2];
@@ -150,7 +149,7 @@ t_mini	*get_infile2(t_mini *node, char **args, int *i, t_prompt *p)
 		*i = -1;
 		if (node->infile != -1)
 		{
-			ft_putendl_fd(NLERR, 2);
+			ft_perror(NLERR, NULL, 1);
 			g_status = 2;
 		}
 	}

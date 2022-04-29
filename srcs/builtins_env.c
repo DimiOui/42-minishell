@@ -6,7 +6,7 @@
 /*   By: jsemel <jsemel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 13:36:32 by jsemel            #+#    #+#             */
-/*   Updated: 2022/04/19 17:33:50 by jsemel           ###   ########.fr       */
+/*   Updated: 2022/04/26 13:25:06 by jsemel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,22 @@ static int	ft_export_classic(t_prompt *prompt)
 	char	**av;
 
 	av = ((t_mini *)prompt->cmds->content)->full_cmd;
-	if (ft_2d_arr_len(av) >= 2 && parse_var(av[1], "export", 1))
+	if (ft_2d_arr_len(av) >= 2)
 	{
 		i[0] = 1;
 		while (av[i[0]])
 		{
-			pos = var_in_env(av[i[0]], prompt->env, i);
-			if (pos == 1)
+			if (parse_var(av[i[0]], "export", 1))
 			{
-				free(prompt->env[i[1]]);
-				prompt->env[i[1]] = ft_strdup(av[i[0]]);
+				pos = var_in_env(av[i[0]], prompt->env, i);
+				if (pos == 1)
+				{
+					free(prompt->env[i[1]]);
+					prompt->env[i[1]] = ft_strdup(av[i[0]]);
+				}
+				else if (!pos)
+					prompt->env = ft_extend_2d_arr(prompt->env, av[i[0]]);
 			}
-			else if (!pos)
-				prompt->env = ft_extend_2d_arr(prompt->env, av[i[0]]);
 			i[0]++;
 		}
 	}
