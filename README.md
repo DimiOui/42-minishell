@@ -3,6 +3,7 @@
 **Minishell project done with [Jeremy](https://github.com/thePush/).**
 
 ## Mindmap
+click image for a much better resolution.
 ![image](https://user-images.githubusercontent.com/72572726/165952529-654edd8f-bca0-4f43-960b-ad58c392c0d0.png)
 
 
